@@ -259,7 +259,7 @@ commands:
     parameters:
       version:
         type: string
-        default: v1.9.2
+        default: v1.12.3
       k8s_version:
         type: string
         default: v1.14.0
@@ -538,6 +538,12 @@ workflows:
           requires:
             - build
       - k8s_integration_tests:
+          name: k8s_v1.19.0_integration_tests
+          k8s_version: v1.19.0
+          requires:
+            - build
+            - helm_check
+      - k8s_integration_tests:
           name: k8s_v1.18.0_integration_tests
           k8s_version: v1.18.0
           requires:
@@ -562,14 +568,8 @@ workflows:
             - build
             - helm_check
       - k8s_integration_tests:
-          name: k8s_v1.14.0_integration_tests
-          k8s_version: v1.14.0
-          requires:
-            - build
-            - helm_check
-      - k8s_integration_tests:
           name: k8s_crio_integration_tests
-          k8s_version: v1.18.0
+          k8s_version: v1.19.0
           with_crio: true
           requires:
             - build
